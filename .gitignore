@@ -1,0 +1,15 @@
+# Angular
+node_modules/
+dist/
+tmp/
+out-tsc/
+.angular/
+
+# IDEs
+.vscode/
+.idea/
+
+# System
+.DS_Store
+Thumbs.db
+.env
