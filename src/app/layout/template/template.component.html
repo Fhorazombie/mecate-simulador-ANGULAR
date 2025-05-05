@@ -1,0 +1,28 @@
+<div class="flex h-screen bg-gray-100 text-gray-800">
+    <!-- Sidebar -->
+    <aside class="w-72 bg-white shadow-lg flex flex-col justify-between p-6">
+      <div>
+        <h2 class="text-xl font-semibold mb-6">👩‍💻 Bienvenido, {{ user?.nombre }}</h2>
+        <nav class="space-y-4">
+          <a [routerLink]="'/modulos/requerimientos'" class="block hover:text-indigo-600">📋 Requerimientos</a>
+          <a [routerLink]="'/modulo-estructura'" class="block hover:text-indigo-600">🧱 Estructura del proyecto</a>
+          <a [routerLink]="'/modulos/componentes'" class="block hover:text-indigo-600">🧩 Componentes</a>
+          <a [routerLink]="'/modulos/crud'" class="block hover:text-indigo-600">📝 CRUD</a>
+          <a [routerLink]="'/modulos/seguridad'" class="block hover:text-indigo-600">🔐 Login y seguridad</a>
+          <a [routerLink]="'/modulos/i18n'" class="block hover:text-indigo-600">🌍 Internacionalización</a>
+          <a [routerLink]="'/modulos/pruebas'" class="block hover:text-indigo-600">🧪 Pruebas y validación</a>
+          <a [routerLink]="'/modulos/despliegue'" class="block hover:text-indigo-600">🚀 Despliegue</a>
+          <a [routerLink]="'/modulos/documentacion'" class="block hover:text-indigo-600">📚 Documentación técnica</a>
+        </nav>
+      </div>
+  
+      <button (click)="logout()" class="mt-10 bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700">
+        🔓 Cerrar sesión
+      </button>
+    </aside>
+  
+    <!-- Main content -->
+    <main class="flex-1 overflow-y-auto p-8">
+      <router-outlet></router-outlet>
+    </main>
+</div>

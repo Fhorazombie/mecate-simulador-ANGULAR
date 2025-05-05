@@ -1,37 +1,46 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { CommonModule } from '@angular/common';
+import { ProgressService } from '../../services/progress.service';
 
 @Component({
+  standalone: true,
   selector: 'app-dashboard',
-  template: `
-    <div class="text-white p-8">
-      <h1 class="text-3xl mb-4">🌙 Bienvenido {{ user?.nombre }}</h1>
-      <p class="text-gray-400">Correo: {{ user?.correo }}</p>
-
-      <button
-        class="mt-6 px-4 py-2 bg-red-600 hover:bg-red-700 rounded"
-        (click)="logout()"
-      >
-        Cerrar sesión
-      </button>
-    </div>
-  `,
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.scss'],
+  imports: [CommonModule],
 })
 export class DashboardComponent implements OnInit {
   user: { nombre: string | null; correo: string | null } | null = null;
+  progreso: any[] = [];
+  modulos = [
+    'Levantamiento de requerimientos',
+    'Estructura del proyecto y control de versiones',
+    'Componentes reutilizables',
+    'CRUD de entidades',
+    'Login y seguridad básica',
+    'Internacionalización (i18n)',
+    'Pruebas manuales y validaciones',
+    'Despliegue de aplicación',
+    'Documentación técnica del proyecto',
+  ];
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(private auth: AuthService, private progressService: ProgressService) {}
 
   ngOnInit(): void {
-    if (!this.auth.isAuthenticated()) {
-      this.router.navigate(['/callback']);
-    } else {
-      this.user = this.auth.getUser();
-    }
+    this.user = this.auth.getUser();
+    
+    this.progressService.getProgress().subscribe(data => {
+      this.progreso = data;
+    });
   }
 
-  logout(): void {
-    this.auth.logout();
+  getEstado(modulo: string): 'completado' | 'pendiente' | 'en curso' {
+    const progresoModulo = this.progreso.find((p) => p.modulo === modulo);
+    if (progresoModulo) {
+      return progresoModulo.estado;
+    } else {
+      return 'pendiente';
+    }
   }
 }

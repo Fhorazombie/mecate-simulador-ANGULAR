@@ -1,1 +1,17 @@
-<p>dashboard works!</p>
+<!-- dashboard.component.html -->
+<div class="text-white p-8">
+    <h1 class="text-3xl mb-4">🌙 Bienvenido {{ user?.nombre }}</h1>
+    <p class="text-gray-400 mb-8">Correo: {{ user?.correo }}</p>
+  
+    <div class="modulos grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div
+        *ngFor="let modulo of modulos; let i = index"
+        class="p-4 rounded-lg shadow-md border border-gray-700"
+        [ngClass]="'color-' + i"
+      >
+        <h2 class="text-xl font-bold mb-2">{{ modulo }}</h2>
+        <p class="text-sm text-gray-400" *ngIf="getEstado(modulo) === 'completado'">✅ Completado</p>
+        <p class="text-sm text-red-400" *ngIf="getEstado(modulo) === 'pendiente'">⏳ Pendiente</p>
+      </div>
+    </div>
+</div>
